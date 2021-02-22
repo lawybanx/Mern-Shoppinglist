@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   Button,
   Modal,
@@ -10,14 +10,23 @@ import {
   Input,
 } from 'reactstrap';
 
+import { connect } from 'react-redux';
+import { addItem } from '../actions/itemActions';
+import PropTypes from 'prop-types';
+
 function ItemModal({ addItem }) {
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
 
+  const [name, setName] = useState('');
+
   const onAdd = (e) => {
     e.preventDefault();
 
-    console.log(e.target);
+    const newItem = { name };
+
+    addItem(newItem);
+    setName('');
   };
 
   return (
@@ -32,7 +41,13 @@ function ItemModal({ addItem }) {
           <Form onSubmit={onAdd}>
             <FormGroup>
               <Label for="item">Item</Label>
-              <Input type="text" name="name" placeholder="Add shopping item" />
+              <Input
+                type="text"
+                name="name"
+                placeholder="Add shopping item"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
             </FormGroup>
             <Button type="submit" color="dark" block onClick={toggle}>
               Add Item
@@ -44,4 +59,12 @@ function ItemModal({ addItem }) {
   );
 }
 
-export default ItemModal;
+ItemModal.propTypes = {
+  addItem: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  item: state.item,
+});
+
+export default connect(mapStateToProps, { addItem })(ItemModal);

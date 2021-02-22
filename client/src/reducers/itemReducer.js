@@ -4,7 +4,7 @@ const initialState = {
   items: [],
 };
 
-export default (state = initialState, { type, payload }) => {
+const itemReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case GET_ITEMS:
       return { ...state, items: payload };
@@ -15,10 +15,12 @@ export default (state = initialState, { type, payload }) => {
     case DELETE_ITEM:
       return {
         ...state,
-        items: state.items.filter((item) => item.id !== payload),
+        items: state.items.filter((item) => item._id !== payload),
       };
 
     default:
       return state;
   }
 };
+
+export default itemReducer;
