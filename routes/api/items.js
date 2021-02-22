@@ -1,41 +1,13 @@
 const express = require('express');
 const router = express.Router();
+const {
+  getItems,
+  addItem,
+  deleteItem,
+} = require('../../controllers/itemsController');
 
-// Bring in Model
-const Item = require('../../models/Item');
+router.route('/').get(getItems).post(addItem);
 
-//  @route  GET api/items
-//  @desc   Get All Items
-//  @access Public
-router.get('/', (req, res) => {
-  Item.find()
-    .sort({ date: -1 })
-    .then((items) => res.json(items));
-});
-
-//  @route  POST api/items
-//  @desc   Create An Item
-//  @access Public
-router.post('/', (req, res) => {
-  const newItem = new Item({
-    name: req.body.name,
-  });
-
-  newItem.save().then((item) => res.json(item));
-});
-
-//  @route  DELETE api/items/:id
-//  @desc   Delete An Item
-//  @access Public
-router.delete('/:id', (req, res) => {
-  const query = { _id: req.params.id };
-
-  Item.deleteOne(query, (err) => {
-    if (!err) {
-      res.json({ success: true });
-    }
-    res.status(404).json({ success: false });
-  });
-});
+router.route('/:id').delete(deleteItem);
 
 module.exports = router;

@@ -1,29 +1,15 @@
 const express = require('express');
 const path = require('path');
-const mongoose = require('mongoose');
-const config = require('./config/database');
+const dotenv = require('dotenv');
+const connectDB = require('./config/db');
+
+dotenv.config({ path: './config/config.env' });
 
 // Connect MongoDB at default port 27017.
-mongoose.connect(
-  config.database,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  },
-  (err) => {
-    if (!err) {
-      console.log('MongoDB Connection Succeeded.');
-    } else {
-      console.log('Error in DB connection: ' + err);
-    }
-  }
-);
+connectDB();
 
 // Express Init
 const app = express();
-
-// Static Folder
-// app.use(express.static(path.join(__dirname, 'public')));
 
 // Body-parser Middleware
 app.use(express.json());
@@ -32,10 +18,21 @@ app.use(express.urlencoded({ extended: true }));
 // Route
 app.use('/api/items', require('./routes/api/items'));
 
-// Port
+// Static Build Folder
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
+
+// PORT
 const PORT = process.env.PORT || 5000;
 
 // Start Server
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(
+    `Server is running in ${process.env.NODE_ENV} mode on port ${PORT}`
+  );
 });

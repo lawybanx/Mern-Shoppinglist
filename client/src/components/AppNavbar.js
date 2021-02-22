@@ -16,7 +16,7 @@ const AppNavbar = (props) => {
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <div>
+    <>
       <Navbar color="light" light expand="sm" className="mb-5">
         <Container>
           <NavbarBrand href="/">ShoppingList</NavbarBrand>
@@ -30,7 +30,7 @@ const AppNavbar = (props) => {
           </Collapse>
         </Container>
       </Navbar>
-    </div>
+    </>
   );
 };
 
