@@ -1,7 +1,7 @@
 import * as actions from './actionTypes';
 import axios from 'axios';
 
-export const getContacts = () => async (dispatch) => {
+export const getItems = () => async (dispatch) => {
   try {
     const res = await axios.get('/api/items');
 

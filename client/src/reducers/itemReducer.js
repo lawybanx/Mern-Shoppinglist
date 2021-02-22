@@ -1,17 +1,7 @@
-import { v4 as uuidv4 } from 'uuid';
 import { GET_ITEMS, ADD_ITEM, DELETE_ITEM } from '../actions/actionTypes';
 
 const initialState = {
-  items: [
-    {
-      id: uuidv4(),
-      name: 'Eggs',
-    },
-    {
-      id: uuidv4(),
-      name: 'Steak',
-    },
-  ],
+  items: [],
 };
 
 export default (state = initialState, { type, payload }) => {
