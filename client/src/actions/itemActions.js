@@ -1,7 +1,7 @@
 import * as actions from './actionTypes';
 import axios from 'axios';
 
-export const getItems = () => async (dispatch) => {
+export const getItems = () => async dispatch => {
   try {
     const res = await axios.get('/api/items');
 
@@ -11,13 +11,13 @@ export const getItems = () => async (dispatch) => {
     });
   } catch (err) {
     dispatch({
-      type: 'ITEM_ERROR',
+      type: actions.ITEM_ERROR,
       payload: err.response.data.error,
     });
   }
 };
 
-export const addItem = (item) => async (dispatch) => {
+export const addItem = item => async dispatch => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -31,13 +31,13 @@ export const addItem = (item) => async (dispatch) => {
     });
   } catch (err) {
     dispatch({
-      type: 'TRANSACTION_ERROR',
+      type: actions.ITEM_ERROR,
       payload: err.response.data.error,
     });
   }
 };
 
-export const deleteItem = (id) => async (dispatch) => {
+export const deleteItem = id => async dispatch => {
   try {
     await axios.delete(`/api/items/${id}`);
     dispatch({
@@ -46,7 +46,7 @@ export const deleteItem = (id) => async (dispatch) => {
     });
   } catch (err) {
     dispatch({
-      type: 'TRANSACTION_ERROR',
+      type: actions.ITEM_ERROR,
       payload: err.response.data.error,
     });
   }

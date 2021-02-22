@@ -20,7 +20,7 @@ function ItemModal({ addItem }) {
 
   const [name, setName] = useState('');
 
-  const onAdd = (e) => {
+  const onAdd = e => {
     e.preventDefault();
 
     const newItem = { name };
@@ -38,7 +38,7 @@ function ItemModal({ addItem }) {
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Add To Shopping List</ModalHeader>
         <ModalBody>
-          <Form onSubmit={onAdd}>
+          <Form onSubmit={onAdd} autoComplete="off">
             <FormGroup>
               <Label for="item">Item</Label>
               <Input
@@ -46,7 +46,7 @@ function ItemModal({ addItem }) {
                 name="name"
                 placeholder="Add shopping item"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={e => setName(e.target.value)}
               />
             </FormGroup>
             <Button type="submit" color="dark" block onClick={toggle}>
@@ -63,7 +63,7 @@ ItemModal.propTypes = {
   addItem: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   item: state.item,
 });
 
