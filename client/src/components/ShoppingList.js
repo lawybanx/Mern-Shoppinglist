@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import ItemModal from './ItemModal';
 
 import { connect } from 'react-redux';
 import { getItems, deleteItem } from '../actions/itemActions';
@@ -16,7 +15,6 @@ function ShoppingList({ getItems, item, deleteItem }) {
   return (
     <>
       <Container>
-        <ItemModal />
         <ListGroup>
           <TransitionGroup className="shopping-list">
             {items.map(({ _id, name }) => (

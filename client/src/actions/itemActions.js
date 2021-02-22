@@ -1,8 +1,10 @@
-import * as actions from './actionTypes';
 import axios from 'axios';
+import * as actions from './actionTypes';
 
 export const getItems = () => async dispatch => {
   try {
+    dispatch(setItemsLoading());
+
     const res = await axios.get('/api/items');
 
     dispatch({
@@ -18,13 +20,8 @@ export const getItems = () => async dispatch => {
 };
 
 export const addItem = item => async dispatch => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
   try {
-    const res = await axios.post('/api/items', item, config);
+    const res = await axios.post('/api/items', item);
     dispatch({
       type: actions.ADD_ITEM,
       payload: res.data.data,
@@ -50,4 +47,8 @@ export const deleteItem = id => async dispatch => {
       payload: err.response.data.error,
     });
   }
+};
+
+export const setItemsLoading = () => {
+  return { type: actions.ITEMS_LOADING };
 };
