@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { v4 as uuidv4 } from 'uuid';
+import ItemModal from './ItemModal';
 
 const initialState = [
   {
@@ -14,25 +15,23 @@ const initialState = [
   },
 ];
 
-const onDeleteClick = (id) => {
-  return id;
-};
-
 function ShoppingList() {
   const [items, setItems] = useState(initialState);
 
-  const addItem = () => {
-    const name = prompt('Enter Item');
+  const addItem = ({ name }) => {
     if (name) {
       setItems([...items, { id: uuidv4(), name }]);
     }
   };
+
+  const onDeleteClick = (id) => {
+    setItems(items.filter((item) => item.id !== id));
+  };
+
   return (
     <>
       <Container>
-        <Button color="dark" style={{ marginBottom: '2rem' }} onClick={addItem}>
-          Add Item
-        </Button>
+        <ItemModal addItem={addItem} />
         <ListGroup>
           <TransitionGroup className="shopping-list">
             {items.map(({ id, name }) => (
