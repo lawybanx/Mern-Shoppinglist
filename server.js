@@ -27,11 +27,8 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-// PORT
-const PORT = process.env.PORT || 5000;
-
 // Start Server
-app.listen(PORT, () => {
+app.listen(process.env.PORT || 5000, () => {
   console.log(
     `Server is running in ${process.env.NODE_ENV} mode on port ${PORT}`
   );
