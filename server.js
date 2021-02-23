@@ -17,6 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Route
 app.use('/api/items', require('./routes/api/items'));
+app.use('/api/users', require('./routes/api/users'));
 
 // Static Build Folder
 if (process.env.NODE_ENV === 'production') {
