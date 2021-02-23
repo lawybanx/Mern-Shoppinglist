@@ -1,9 +1,8 @@
 const express = require('express');
 const path = require('path');
-const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 
-dotenv.config({ path: './config/config.env' });
+require('dotenv').config();
 
 // Connect MongoDB at default port 27017.
 connectDB();
