@@ -4,6 +4,7 @@ const Item = require('../models/Item');
 //  @route  GET api/items
 //  @desc   Get All Items
 //  @access Public
+
 exports.getItems = async (req, res, next) => {
   try {
     const items = await Item.find().sort({ date: -1 });
@@ -23,7 +24,8 @@ exports.getItems = async (req, res, next) => {
 
 //  @route  POST api/items
 //  @desc   Create An Item
-//  @access Public
+//  @access Private
+
 exports.addItem = async (req, res, next) => {
   try {
     const item = await Item.create(req.body);
@@ -51,7 +53,8 @@ exports.addItem = async (req, res, next) => {
 
 //  @route  DELETE api/items/:id
 //  @desc   Delete An Item
-//  @access Public
+//  @access Private
+
 exports.deleteItem = async (req, res, next) => {
   try {
     const item = await Item.findById(req.params.id);

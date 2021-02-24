@@ -5,9 +5,10 @@ const {
   addItem,
   deleteItem,
 } = require('../../controllers/itemsController');
+const auth = require('../../middleware/auth');
 
-router.route('/').get(getItems).post(addItem);
+router.route('/').get(getItems).post(auth, addItem);
 
-router.route('/:id').delete(deleteItem);
+router.route('/:id').delete(auth, deleteItem);
 
 module.exports = router;
