@@ -9,8 +9,7 @@ import PropTypes from 'prop-types';
 function ShoppingList({ getItems, item, deleteItem }) {
   useEffect(() => {
     getItems();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [getItems]);
   const { items } = item;
   return (
     <>

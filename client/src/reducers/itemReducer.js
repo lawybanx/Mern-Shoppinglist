@@ -3,12 +3,10 @@ import {
   ADD_ITEM,
   DELETE_ITEM,
   ITEMS_LOADING,
-  ITEM_ERROR,
 } from '../actions/actionTypes';
 
 const initialState = {
   items: [],
-  errors: [],
   loading: false,
 };
 
@@ -25,9 +23,6 @@ const itemReducer = (state = initialState, { type, payload }) => {
         ...state,
         items: state.items.filter(item => item._id !== payload),
       };
-
-    case ITEM_ERROR:
-      return { ...state, errors: [payload, ...state.errors] };
 
     case ITEMS_LOADING:
       return { ...state, loading: true };

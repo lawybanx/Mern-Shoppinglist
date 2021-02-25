@@ -63,7 +63,7 @@ exports.loginUser = async (req, res, next) => {
   }
 };
 
-//  @route  POST api/users
+//  @route  POST api/auth/register
 //  @desc   Register new user
 //  @access Public
 
@@ -71,7 +71,7 @@ exports.registerUser = async (req, res, next) => {
   const { name, email, password } = req.body;
 
   // Simple validation
-  if (!name || !email || !password) {
+  if (!name || !email || !password)  {
     return res.status(400).json({ msg: 'Please enter all fields' });
   }
 
@@ -122,7 +122,7 @@ exports.getUser = async (req, res, next) => {
     const user = await User.findById(req.user.id).select('-password');
     if (!user) throw Error('User does not exist');
 
-    return res.status(200).json({ success: true, data: user });
+    return res.status(200).json(user);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }

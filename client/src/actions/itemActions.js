@@ -12,10 +12,7 @@ export const getItems = () => async dispatch => {
       payload: res.data.data,
     });
   } catch (err) {
-    dispatch({
-      type: actions.ITEM_ERROR,
-      payload: err.response.data.error,
-    });
+    // dispatch();
   }
 };
 
@@ -27,10 +24,7 @@ export const addItem = item => async dispatch => {
       payload: res.data.data,
     });
   } catch (err) {
-    dispatch({
-      type: actions.ITEM_ERROR,
-      payload: err.response.data.error,
-    });
+    // dispatch();
   }
 };
 
@@ -42,10 +36,7 @@ export const deleteItem = id => async dispatch => {
       payload: id,
     });
   } catch (err) {
-    dispatch({
-      type: actions.ITEM_ERROR,
-      payload: err.response.data.error,
-    });
+    // dispatch();
   }
 };
 
