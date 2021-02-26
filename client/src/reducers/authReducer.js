@@ -34,7 +34,7 @@ const authReducer = (state = initialState, { type, payload }) => {
 
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
-      localStorage.getItem('token', payload.token);
+      localStorage.setItem('token', payload.token);
       return {
         ...state,
         ...payload,

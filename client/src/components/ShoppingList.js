@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { getItems, deleteItem } from '../actions/itemActions';
 import PropTypes from 'prop-types';
 
-function ShoppingList({ getItems, item, deleteItem }) {
+function ShoppingList({ isAuthenticated, getItems, item, deleteItem }) {
   useEffect(() => {
     getItems();
   }, [getItems]);
@@ -19,14 +19,16 @@ function ShoppingList({ getItems, item, deleteItem }) {
             {items.map(({ _id, name }) => (
               <CSSTransition key={_id} timeout={500} classNames="fade">
                 <ListGroupItem>
-                  <Button
-                    className="remove-btn"
-                    color="danger"
-                    size="sm"
-                    onClick={() => deleteItem(_id)}
-                  >
-                    &times;
-                  </Button>
+                  {isAuthenticated ? (
+                    <Button
+                      className="remove-btn"
+                      color="danger"
+                      size="sm"
+                      onClick={() => deleteItem(_id)}
+                    >
+                      &times;
+                    </Button>
+                  ) : null}
                   {name}
                 </ListGroupItem>
               </CSSTransition>
@@ -46,6 +48,7 @@ ShoppingList.propTypes = {
 
 const mapStateToProps = state => ({
   item: state.item,
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { getItems, deleteItem })(ShoppingList);

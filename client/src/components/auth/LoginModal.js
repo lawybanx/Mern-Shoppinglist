@@ -12,16 +12,11 @@ import {
   Alert,
 } from 'reactstrap';
 import { connect } from 'react-redux';
-import { registerUser } from '../../actions/authActions';
+import { loginUser } from '../../actions/authActions';
 import { clearErrors } from '../../actions/errorActions';
 import PropTypes from 'prop-types';
 
-const RegisterModal = ({
-  isAuthenticated,
-  registerUser,
-  error,
-  clearErrors,
-}) => {
+const LoginModal = ({ isAuthenticated, loginUser, error, clearErrors }) => {
   const [modal, setModal] = useState(false);
 
   const toggle = useCallback(() => {
@@ -30,21 +25,20 @@ const RegisterModal = ({
     setModal(!modal);
   }, [clearErrors, modal]);
 
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [msg, setMsg] = useState(null);
 
-  const onRegister = e => {
+  const onLogin = e => {
     e.preventDefault();
 
-    const newUser = { name, email, password };
-    registerUser(newUser);
+    const user = { email, password };
+    loginUser(user);
   };
 
   useEffect(() => {
     // Check for register error
-    if (error.id === 'REGISTER_FAIL') {
+    if (error.id === 'LOGIN_FAIL') {
       setMsg(error.msg.msg);
     } else {
       setMsg(null);
@@ -61,24 +55,14 @@ const RegisterModal = ({
   return (
     <>
       <NavLink href="#" onClick={toggle}>
-        Register
+        Login
       </NavLink>
 
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Register</ModalHeader>
+        <ModalHeader toggle={toggle}>Login</ModalHeader>
         <ModalBody>
           {msg ? <Alert color="danger">{msg}</Alert> : null}
-          <Form onSubmit={onRegister} autoComplete="off">
-            <FormGroup>
-              <Label for="name">Name</Label>
-              <Input
-                type="text"
-                name="name"
-                placeholder="Enter name"
-                value={name}
-                onChange={e => setName(e.target.value)}
-              />
-            </FormGroup>
+          <Form onSubmit={onLogin} autoComplete="off">
             <FormGroup>
               <Label for="email">Email</Label>
               <Input
@@ -100,7 +84,7 @@ const RegisterModal = ({
               />
             </FormGroup>
             <Button type="submit" color="dark" block>
-              Register
+              Login
             </Button>
           </Form>
         </ModalBody>
@@ -109,10 +93,10 @@ const RegisterModal = ({
   );
 };
 
-RegisterModal.propTypes = {
+LoginModal.propTypes = {
   isAuthenticated: PropTypes.bool,
   error: PropTypes.object.isRequired,
-  registerUser: PropTypes.func.isRequired,
+  loginUser: PropTypes.func.isRequired,
   clearErrors: PropTypes.func.isRequired,
 };
 
@@ -121,6 +105,4 @@ const mapStateToProps = state => ({
   error: state.error,
 });
 
-export default connect(mapStateToProps, { registerUser, clearErrors })(
-  RegisterModal
-);
+export default connect(mapStateToProps, { loginUser, clearErrors })(LoginModal);
