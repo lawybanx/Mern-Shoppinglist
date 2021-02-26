@@ -44,6 +44,7 @@ ShoppingList.propTypes = {
   getItems: PropTypes.func.isRequired,
   deleteItem: PropTypes.func.isRequired,
   item: PropTypes.object.isRequired,
+  isAuthenticated: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({

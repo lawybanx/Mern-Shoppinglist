@@ -65,6 +65,7 @@ function ItemModal({ addItem, isAuthenticated }) {
 
 ItemModal.propTypes = {
   addItem: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({
